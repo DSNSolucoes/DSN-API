@@ -1,0 +1,25 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+
+namespace ControleFiscal.seguranca
+{
+    public class OperationCancelledExceptionFilter : ExceptionFilterAttribute
+    {
+        private readonly ILogger _logger;
+
+        public OperationCancelledExceptionFilter(ILoggerFactory loggerFactory)
+        {
+            _logger = loggerFactory.CreateLogger<OperationCancelledExceptionFilter>();
+        }
+
+        public override void OnException(ExceptionContext context)
+        {
+            if (context.Exception is OperationCanceledException)
+            {
+                _logger.LogInformation("Request was cancelled");
+                context.ExceptionHandled = true;
+                context.Result = new ContentResult { Content = "Task was cancelled", StatusCode = 499 };
+            }
+        }
+    }
+}

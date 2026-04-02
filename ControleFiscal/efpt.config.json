@@ -1,0 +1,361 @@
+﻿{
+   "CodeGenerationMode": 2,
+   "ContextClassName": "Context\\ControleFiscalContext",
+   "ContextNamespace": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Context\\Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "ControleFiscalContext",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [      
+      {
+         "Name": "CAIXA",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CAIXA_EVENTOS",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CAIXA_SITUACAO",
+         "ObjectType": 0
+      }, 
+      {
+         "Name": "CEST_NCM",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CLIENTE_CATEGORIAS_FORMPAG",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CLIENTE_COMPUTADOR",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CLIENTE_COMPUTADOR_DISCO",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CLIENTE_COMPUTADOR_SISTEMA",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CLIENTE_COMPUTADOR_SISTEMA_MODU",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CLIENTE_CONTABANCARIA",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CLIENTE_GRUPOS",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CLIENTE_HISTORICO",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CLIENTE_USUARIO",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CLIENTES",
+         "ObjectType": 0
+      },      
+      {
+         "Name": "CLIENTES_REF",
+         "ObjectType": 0
+      },       
+      {
+         "Name": "CONFIG_CADASTRO",
+         "ObjectType": 0
+      },     
+      {
+         "Name": "CONFIG_EMPRESA_CONSULTA",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CONFIG_LOCAL",
+         "ObjectType": 0
+      }, 
+      {
+         "Name": "CONFIG_PEDIDO",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CONFIG_SINCRONIZACAO",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CONFIG_SPED",
+         "ObjectType": 0
+      },
+      {
+         "Name": "CONFIMPDOC",
+         "ObjectType": 0
+      },      
+      {
+         "Name": "DFE_SERIE_NUMERACAO",
+         "ObjectType": 0
+      },       
+      {
+         "Name": "EMPRESAS",
+         "ObjectType": 0
+      },
+      {
+         "Name": "END_CERTIFICADO_CONFIG",
+         "ObjectType": 0
+      },      
+      {
+         "Name": "ENTRADA",
+         "ObjectType": 0
+      },
+      {
+         "Name": "ENTRADA_CONFIG",
+         "ObjectType": 0
+      },
+      {
+         "Name": "ENTRADA_FISCAL",
+         "ObjectType": 0
+      },
+      {
+         "Name": "ENTRADA_GRADE",
+         "ObjectType": 0
+      },
+      {
+         "Name": "ENTRADA_GRADE_QUANTIDADE",
+         "ObjectType": 0
+      },
+      {
+         "Name": "ENTRADA_ITEM",
+         "ObjectType": 0
+      },
+      {
+         "Name": "ENTRADA_ITEM_FISCAL",
+         "ObjectType": 0
+      },
+      {
+         "Name": "ENTRADA_ITEM_IMPORT_LACRES",
+         "ObjectType": 0
+      },
+      {
+         "Name": "ENTRADA_ITEM_IMPORTACAO",
+         "ObjectType": 0
+      },
+      {
+         "Name": "ENTRADA_ITEM_MEDICAMENTO",
+         "ObjectType": 0
+      },
+      {
+         "Name": "ENTRADA_NUMSERIE",
+         "ObjectType": 0
+      },
+      {
+         "Name": "ESTOQUE",
+         "ObjectType": 0
+      },
+      {
+         "Name": "ESTOQUE_ALTERACAOMANUAL",
+         "ObjectType": 0
+      },
+      {
+         "Name": "ESTOQUE_DATA",
+         "ObjectType": 0
+      }, 
+      {
+         "Name": "FORNECEDORES",
+         "ObjectType": 0
+      },
+      {
+         "Name": "FOTOS_TRANSICAO",
+         "ObjectType": 0
+      },
+      {
+         "Name": "GRADES",
+         "ObjectType": 0
+      },
+      {
+         "Name": "GRIDS",
+         "ObjectType": 0
+      },
+      {
+         "Name": "GRUPOS_PRODUTOS",
+         "ObjectType": 0
+      },
+      {
+         "Name": "GRUPOS_PROMOCIONAIS",
+         "ObjectType": 0
+      },      
+      {
+         "Name": "NFCE_CANCELADA",
+         "ObjectType": 0
+      },
+      {
+         "Name": "NFCE_CANCELADA_XML",
+         "ObjectType": 0
+      },
+      {
+         "Name": "NFCE_CONFIG",
+         "ObjectType": 0
+      },
+      {
+         "Name": "NFCE_CONFIG_LOCAL",
+         "ObjectType": 0
+      },
+      {
+         "Name": "NFCE_CONTING_CONTROLLER",
+         "ObjectType": 0
+      },
+      {
+         "Name": "NFCE_INUTILIZADA",
+         "ObjectType": 0
+      },
+      {
+         "Name": "NFCE_INUTILIZADA_XML",
+         "ObjectType": 0
+      },
+      {
+         "Name": "NFCE_PEDIDO",
+         "ObjectType": 0
+      },
+      {
+         "Name": "NFCE_PEDIDO_ITEM",
+         "ObjectType": 0
+      },
+      {
+         "Name": "NFCE_XML",
+         "ObjectType": 0
+      },       
+      {
+         "Name": "PEDIDO",
+         "ObjectType": 0
+      },
+      {
+         "Name": "PEDIDO_CATEGORIA",
+         "ObjectType": 0
+      },
+      {
+         "Name": "PEDIDO_COMPRA_PAGAMENTO",
+         "ObjectType": 0
+      },
+      {
+         "Name": "PEDIDO_ITEM",
+         "ObjectType": 0
+      },
+      {
+         "Name": "PEDIDO_ITEM_NUMSERIE",
+         "ObjectType": 0
+      }, 
+      {
+         "Name": "PEDIDO_PAGAMENTO",
+         "ObjectType": 0
+      },
+      {
+         "Name": "PRODFORNEC",
+         "ObjectType": 0
+      },
+      {
+         "Name": "PRODUTO_SIMILAR",
+         "ObjectType": 0
+      },
+      {
+         "Name": "PRODUTOS",
+         "ObjectType": 0
+      },      
+      {
+         "Name": "PRODUTOS_FOTO",
+         "ObjectType": 0
+      },
+      {
+         "Name": "PRODUTOS_MARCAS",
+         "ObjectType": 0
+      },
+      {
+         "Name": "PRODUTOS_MARKETPLACE",
+         "ObjectType": 0
+      },
+      {
+         "Name": "PRODUTOS_REAJUSTES",
+         "ObjectType": 0
+      },
+      {
+         "Name": "PRODUTOS_REF",
+         "ObjectType": 0
+      },
+      {
+         "Name": "PRODUTOS_TRIBUTACAO",
+         "ObjectType": 0
+      },
+      {
+         "Name": "PRODUTOS_URL",
+         "ObjectType": 0
+      },
+      {
+         "Name": "TERMINAIS",
+         "ObjectType": 0
+      },
+      {
+         "Name": "TERMINAIS_LIGADOS",
+         "ObjectType": 0
+      },
+      {
+         "Name": "TERMINAIS_REF",
+         "ObjectType": 0
+      },
+      {
+         "Name": "TEXTOS",
+         "ObjectType": 0
+      },
+      {
+         "Name": "TIPOPRECO",
+         "ObjectType": 0
+      },
+      {
+         "Name": "UNIDADE",
+         "ObjectType": 0
+      },
+      {
+         "Name": "USUARIOS",
+         "ObjectType": 0
+      },
+      {
+         "Name": "USUARIOS_CATEGORIA",
+         "ObjectType": 0
+      },
+      {
+         "Name": "USUARIOS_REF",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": null,
+   "UncountableWords": null,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDateOnlyTimeOnly": false,
+   "UseDbContextSplitting": true,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false
+}
