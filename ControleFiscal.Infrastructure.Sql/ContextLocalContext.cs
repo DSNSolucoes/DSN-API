@@ -35,6 +35,8 @@ namespace ControleFiscal.Infrastructure.Sql
         public virtual DbSet<CaixaMovimentacao> CaixaMovimentacao { get; set; }
 
         public virtual DbSet<TipoValorCaixa> TipoValorCaixa { get; set; }
+        public virtual DbSet<SyncLog> SyncLogs { get; set; }
+        public virtual DbSet<SyncConfig> SyncConfigs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -48,6 +50,8 @@ namespace ControleFiscal.Infrastructure.Sql
             modelBuilder.ApplyConfiguration(new CaixaMovimentacaoConfiguration());
 
             modelBuilder.ApplyConfiguration(new TipoValorCaixaConfiguration());
+            modelBuilder.ApplyConfiguration(new SyncLogConfiguration());
+            modelBuilder.ApplyConfiguration(new SyncConfigConfiguration());
 
             OnModelCreatingPartial(modelBuilder);
         }

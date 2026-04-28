@@ -1,4 +1,5 @@
 ﻿using ControleFiscal.ApplicationCore.Service;
+using ControleFiscal.Domain.Interface.Service;
 using ControleFiscal.Infrastructure.Sql; 
 using ControleFiscal.Infrastructure.Sql.Focus.Context;
 using ControleFiscal.seguranca;
@@ -50,6 +51,7 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICaixaService, CaixaService>();
+builder.Services.AddScoped<ISyncService, SyncService>();
 
 
 var HabilitaSwagger = configuration.GetSection("ConfiguracaoProducao:HabilitaSwagger").Value == "True";

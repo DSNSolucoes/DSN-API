@@ -34,3 +34,4 @@ D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.ApplicationCore\obj\Debug\net9
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.ApplicationCore\obj\Debug\net9.0\refint\ControleFiscal.ApplicationCore.dll
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.ApplicationCore\obj\Debug\net9.0\ControleFiscal.ApplicationCore.pdb
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.ApplicationCore\obj\Debug\net9.0\ref\ControleFiscal.ApplicationCore.dll
+d:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.ApplicationCore\obj\Debug\net9.0\ControleFiscal.ApplicationCore.sourcelink.json

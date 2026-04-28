@@ -1,11 +1,15 @@
-﻿using ControleFiscal.Infrastructure.Sql;
+﻿using ControleFiscal.Domain.DTO.ControleFiscal;
+using ControleFiscal.Infrastructure.Sql;
 using ControleFiscal.Infrastructure.Sql.Entity;
+using ControleFiscal.Infrastructure.Sql.Focus;
+using ControleFiscal.Infrastructure.Sql.Focus.Context;
 using ControleFiscal.Utils;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
+using System.Diagnostics.Metrics;
 using System.Text;
-using ControleFiscal.Infrastructure.Sql.Focus;
-using ControleFiscal.Domain.DTO.ControleFiscal;
-using ControleFiscal.Infrastructure.Sql.Focus.Context;
 
 
 namespace ControleFiscal.Controllers
@@ -57,6 +61,99 @@ namespace ControleFiscal.Controllers
             {
                 return BadRequest(e.Message + e.StackTrace);
             }
+        }
+
+
+        [HttpPost("AtualizaNCM")]
+        public ActionResult<List<RetornoAtualizacaoNCM>> AtualizarNCM()
+        {
+            var retorno = new List<RetornoAtualizacaoNCM>();
+
+            var ncmConfiguracao = _ContextLocal.NCMs.FirstOrDefault(x => x.Padrao == "V");
+
+            var ncm = ncmConfiguracao != null ? ncmConfiguracao?.NCM : string.Empty;
+
+            if (ncm == string.Empty)
+            {
+                return BadRequest("NCM Padrão não encontrado");
+            }
+
+            try
+            {
+                var lojas = _ContextLocal.Lojas.Where(x => x.Id < 200).ToList();
+
+                foreach (var loja in lojas)
+                {
+                    try
+                    {
+                        var conexaoLocal = new ContextControleFiscalContext();
+
+                        conexaoLocal.ConexaoCliente(loja?.Caminho, loja?.Host);
+
+
+                        var terminais = conexaoLocal.NfceConfigLocal.ToList();
+
+                        foreach (var item in terminais)
+                        {
+                            item.EmissaoExtraordinariaNcm = ncm;
+                            conexaoLocal.Update(item);
+                            conexaoLocal.SaveChanges();
+
+                        }
+                        conexaoLocal.Dispose();
+                        retorno.Add(new RetornoAtualizacaoNCM { Loja = loja?.Nome, Atualizado = true });
+                    }
+                    catch (Exception)
+                    {
+                        retorno.Add(new RetornoAtualizacaoNCM { Loja = loja?.Nome, Atualizado = false });                        
+                    }
+                }
+                return Ok(retorno);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message + e.StackTrace);
+            }
+        }
+
+        [HttpPost("AtualizarTipoCampoNCM")]
+        public ActionResult AtualizarTipoCampo()
+        {
+            //precisa conectar em todas as lojas como feito na funcao acima e rodar esse script
+
+               var retorno = new List<RetornoAtualizacaoNCM>();
+            try
+                {
+                var lojas = _ContextLocal.Lojas.Where(x => x.Id < 200).ToList();
+                foreach (var loja in lojas)
+                {
+                    try
+                    {
+                        var conexaoLocal = new ContextControleFiscalContext();
+                        conexaoLocal.ConexaoCliente(loja?.Caminho, loja?.Host);
+                        conexaoLocal.Database.ExecuteSqlRaw("ALTER TABLE NFCE_CONFIG_LOCAL ALTER COLUMN EMISSAO_EXTRAORDINARIA_NCM TYPE DM_TEXTO19999");
+                        conexaoLocal.Dispose();
+                        retorno.Add(new RetornoAtualizacaoNCM { Loja = loja?.Nome, Atualizado = true });
+                    }
+                    catch (Exception)
+                    {
+                        retorno.Add(new RetornoAtualizacaoNCM { Loja = loja?.Nome, Atualizado = false });
+                    }
+                }
+                return Ok(retorno);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message + e.StackTrace);
+            }
+
+        }
+
+
+        public class RetornoAtualizacaoNCM
+        {
+            public string Loja { get; set; }
+            public bool Atualizado { get; set; }
         }
 
         [HttpGet("Obter")]

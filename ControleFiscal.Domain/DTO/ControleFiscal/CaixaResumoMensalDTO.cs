@@ -2,8 +2,8 @@
 {
     public class CaixaResumoMensalDTO
     {
-        public int CaixaId { get; set; }
-        public string? DescricaoCaixa { get; set; }
+        public string CaixaId { get; set; } = string.Empty;
+        public string DescricaoCaixa { get; set; } = string.Empty;
         public decimal ValorTotalMes { get; set; }
     }
 }

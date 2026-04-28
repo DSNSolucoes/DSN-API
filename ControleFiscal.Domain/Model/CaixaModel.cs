@@ -1,19 +1,17 @@
-﻿using System;
-
-namespace ControleFiscal.Domain.Model
+﻿namespace ControleFiscal.Domain.Model
 {
     public class CaixaSalvarModel
     {
-        public int Id { get; set; }
-        public int LojaId { get; set; }
+        public string? Id { get; set; }
+        public string LojaId { get; set; } = string.Empty;
         public string? Descricao { get; set; }
     }
 
     public class CaixaMovimentacaoSalvarModel
     {
-        public int Id { get; set; }
-        public int CaixaId { get; set; }
-        public int TipoValorCaixaId { get; set; }
+        public string? Id { get; set; }
+        public string CaixaId { get; set; } = string.Empty;
+        public string TipoValorCaixaId { get; set; } = string.Empty;
         public decimal Valor { get; set; }
         public DateTime? DataCompetencia { get; set; }
         public string? Descricao { get; set; }

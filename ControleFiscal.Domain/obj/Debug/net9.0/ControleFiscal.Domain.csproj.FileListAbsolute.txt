@@ -20,3 +20,4 @@ D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Domain\obj\Debug\net9.0\Contro
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Domain\obj\Debug\net9.0\refint\ControleFiscal.Domain.dll
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Domain\obj\Debug\net9.0\ControleFiscal.Domain.pdb
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Domain\obj\Debug\net9.0\ref\ControleFiscal.Domain.dll
+d:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Domain\obj\Debug\net9.0\ControleFiscal.Domain.sourcelink.json

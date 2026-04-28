@@ -149,7 +149,6 @@ namespace ControleFiscal.Controllers
 
                 var sql = SQLV50(lojaId.First(), grupoId, produtoId, fornecedorId, inicio, fim, ordenacao, ascdesc);
 
-
                 DateTime dataInicio = new DateTime(DateTime.Parse(inicio).Year, DateTime.Parse(inicio).Month, DateTime.Parse(inicio).Day, 0, 0, 0);
                 DateTime dataFim = new DateTime(DateTime.Parse(fim).Year, DateTime.Parse(fim).Month, DateTime.Parse(fim).Day, 23, 59, 59);
 

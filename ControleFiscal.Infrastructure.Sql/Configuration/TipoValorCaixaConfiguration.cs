@@ -9,17 +9,18 @@ namespace ControleFiscal.Infrastructure.Sql.Local
         public void Configure(EntityTypeBuilder<TipoValorCaixa> entity)
         {
             entity.HasKey(e => e.Id);
-
             entity.ToTable("TIPO_VALOR_CAIXA");
-
             entity.HasIndex(e => e.Id, "PK_TIPO_VALOR_CAIXA");
 
-            entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.Descricao).HasColumnName("DESCRICAO");
+            entity.Property(e => e.Id).HasColumnName("ID").HasColumnType("CHAR(36)").HasMaxLength(36).ValueGeneratedNever();
+            entity.Property(e => e.Descricao).HasColumnName("DESCRICAO").HasMaxLength(100);
+            entity.Property(e => e.CreatedAt).HasColumnName("CREATED_AT").HasColumnType("TIMESTAMP").HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.UpdatedAt).HasColumnName("UPDATED_AT").HasColumnType("TIMESTAMP");
+            entity.Property(e => e.IsDeleted).HasColumnName("IS_DELETED").HasColumnType("SMALLINT").HasDefaultValueSql("0");
+            entity.Property(e => e.SyncStatus).HasColumnName("SYNC_STATUS").HasMaxLength(10).HasDefaultValueSql("'PENDING'");
 
             OnConfigurePartial(entity);
         }
-
         partial void OnConfigurePartial(EntityTypeBuilder<TipoValorCaixa> entity);
     }
 }

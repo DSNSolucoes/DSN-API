@@ -76,6 +76,7 @@ namespace ControleFiscal.Infrastructure.Sql.Focus.Context
         public virtual DbSet<RelatorioF04DTOAgrupado> RelatoriosF04Agrupado { get; set; }
         public virtual DbSet<AlteraEstoqueDTO> AlterarEstoque { get; set; }
         public virtual DbSet<ComboDTO> GruposProdutosDTO { get; set; }
+        public virtual DbSet<CurvaAbcRaw> CurvaAbcResultados { get; set; }
         #endregion
 
 
@@ -92,6 +93,7 @@ namespace ControleFiscal.Infrastructure.Sql.Focus.Context
             modelBuilder.Entity<RelatorioF04DTOAgrupado>().HasNoKey();
             modelBuilder.Entity<ComboDTO>().HasNoKey();
             modelBuilder.Entity<ProdutoDTOVinculo>().HasNoKey();
+            modelBuilder.Entity<CurvaAbcRaw>().HasNoKey();
 
             #region Configurations
             modelBuilder.ApplyConfiguration(new CaixaConfiguration());

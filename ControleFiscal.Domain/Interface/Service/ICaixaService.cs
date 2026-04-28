@@ -6,18 +6,19 @@ namespace ControleFiscal.Services.Interfaces
 {
     public interface ICaixaService
     {
-        List<CaixaDTO> Listar(int lojaId, DateTime data);
-        List<CaixaResumoMensalDTO> ListarResumoMensal(int lojaId, int ano, int mes);
+        List<CaixaDTO> Listar(string lojaId, DateTime data);
+        List<CaixaResumoMensalDTO> ListarResumoMensal(string lojaId, int ano, int mes);
         Caixa IncluirCaixa(CaixaSalvarModel model);
-        Caixa AlterarCaixa(int id, CaixaSalvarModel model);
-        void DeletarCaixa(int id);
-
+        Caixa AlterarCaixa(string id, CaixaSalvarModel model);
+        void DeletarCaixa(string id);
         CaixaMovimentacao IncluirMovimentacao(CaixaMovimentacaoSalvarModel model);
-        CaixaMovimentacao AlterarMovimentacao(int id, CaixaMovimentacaoSalvarModel model);
-        void DeletarMovimentacao(int id);
-
+        CaixaMovimentacao AlterarMovimentacao(string id, CaixaMovimentacaoSalvarModel model);
+        void DeletarMovimentacao(string id);
+        List<Caixa> ListarCaixas(string lojaId);
         List<int> ListarDias(int ano, int mes);
         List<TipoValorCaixa> ListarTiposValor();
         TipoValorCaixa CriarTipoValor(string descricao);
+        TipoValorCaixa AlterarTipoValor(string id, string descricao);
+        void DeletarTipoValor(string id);
     }
 }

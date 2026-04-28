@@ -34,3 +34,4 @@ D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Infrastructure.Sql\obj\Debug\n
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Infrastructure.Sql\obj\Debug\net9.0\ControleFiscal.Infrastructure.Sql.pdb
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Infrastructure.Sql\obj\Debug\net9.0\ControleFiscal.Infrastructure.Sql.genruntimeconfig.cache
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Infrastructure.Sql\obj\Debug\net9.0\ref\ControleFiscal.Infrastructure.Sql.dll
+d:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Infrastructure.Sql\obj\Debug\net9.0\ControleFiscal.Infrastructure.Sql.sourcelink.json
