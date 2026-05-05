@@ -6,5 +6,7 @@ namespace ControleFiscal.Infrastructure.Sql.Entity
     {
         public int Id { get; set; }
         public string Descricao { get; set; }
+
+        public virtual ICollection<TipoValorCaixaItem> Itens { get; set; } = new List<TipoValorCaixaItem>();
     }
 }

@@ -1,4 +1,4 @@
-﻿using ControleFiscal.Infrastructure.Sql;
+using ControleFiscal.Infrastructure.Sql;
 using ControleFiscal.Utils;
 
 using Microsoft.AspNetCore.Mvc;
@@ -31,11 +31,11 @@ namespace ControleFiscal.Controllers
             var nomeLoja = "";
             try
             {
-                Lojas? loja = _ContextLocal.Lojas.FirstOrDefault(x => x.Id == lojaId);
+                Empresa? loja = _ContextLocal.Empresas.FirstOrDefault(x => x.Id == lojaId);
 
                 nomeLoja = loja?.Nome;
 
-                _Context.ConexaoCliente(loja?.Caminho, loja?.Host);
+                _Context.ConexaoCliente(loja?.Caminho ?? "", loja?.Host ?? "");
 
                 var lista = _Context.NfceConfig.ToList();
 

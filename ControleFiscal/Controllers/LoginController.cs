@@ -28,7 +28,10 @@ namespace ControleFiscal.Controllers
         {
             try
             {
-                var resultado = _ContextLocal.Logins.FirstOrDefault(x => x.Login.ToUpper() == login.Login.ToUpper());
+                var resultado = _ContextLocal.Logins.FirstOrDefault(x => x.Login.ToUpper() == (login.Login ?? "").ToUpper());
+
+                if (resultado == null)
+                    return Unauthorized();
 
                 if (resultado.Bloqueado == "V")
                 {

@@ -16,6 +16,7 @@ namespace ControleFiscal.Infrastructure.Sql.Local
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Descricao).HasColumnName("DESCRICAO");
+ 
 
             OnConfigurePartial(entity);
         }

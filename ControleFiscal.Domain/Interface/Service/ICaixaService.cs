@@ -14,10 +14,14 @@ namespace ControleFiscal.Services.Interfaces
 
         CaixaMovimentacao IncluirMovimentacao(CaixaMovimentacaoSalvarModel model);
         CaixaMovimentacao AlterarMovimentacao(int id, CaixaMovimentacaoSalvarModel model);
-        void DeletarMovimentacao(int id);
+        void DeletarMovimentacao(int id, string nomeUsuario);
 
         List<int> ListarDias(int ano, int mes);
         List<TipoValorCaixa> ListarTiposValor();
         TipoValorCaixa CriarTipoValor(string descricao);
+
+        List<TipoValorCaixaItem> ListarItensDoTipoValor(int tipoValorId);
+        TipoValorCaixaItem CriarItemTipoValor(int tipoValorId, string descricao);
+        void DeletarItemTipoValor(int itemId);
     }
 }

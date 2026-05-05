@@ -1,4 +1,4 @@
-﻿using ControleFiscal.Infrastructure.Sql;
+using ControleFiscal.Infrastructure.Sql;
 using ControleFiscal.Utils;
 using ControleFiscal.Infrastructure.Sql.Focus; 
 
@@ -45,7 +45,7 @@ namespace ControleFiscal.Controllers
                     fornecedorCNPJ = _Context.Fornecedores.First(x => x.CdFornecedor == fornecedorId).CpfCnpj;
                 }
 
-                var lojas = _ContextLocal.Lojas.Where(x => lojaId.Contains(x.Id) && x.Id < 999);//Para nao pegar nada do Entrada
+                var lojas = _ContextLocal.Empresas.Where(x => lojaId.Contains(x.Id) && x.Id < 999);//Para nao pegar nada do Entrada
                 var nomeLoja = string.Empty;
 
                 foreach (var item in lojas)
@@ -90,7 +90,7 @@ namespace ControleFiscal.Controllers
                             sql = sql + " coalesce(pertence,'F') = 'V' ";
                         }
 
-                        listaRetorno.AddRange(contextLoja.Produtos.FromSqlRaw(sql).ToList().Select(x => new ProdutosDTO()
+                        listaRetorno.AddRange(contextLoja!.Produtos.FromSqlRaw(sql).ToList().Select(x => new ProdutosDTO()
                         {
                             CdProduto = x.CdProduto,
                             CodBarras = x.CodBarras,
@@ -104,7 +104,7 @@ namespace ControleFiscal.Controllers
                     }
                     catch (Exception e)
                     {
-                        listaRetorno.Add(new ProdutosDTO() { NomeLoja = nomeLoja, Erro = e.StackTrace });
+                        listaRetorno.Add(new ProdutosDTO() { NomeLoja = nomeLoja, Erro = e.StackTrace ?? "" });
 
                     }
 
@@ -136,10 +136,10 @@ namespace ControleFiscal.Controllers
             string? nomeloja = "";
             try
             {
-                var loja = _ContextLocal.Lojas.FirstOrDefault(x => x.Id == lojaId);
+                var loja = _ContextLocal.Empresas.FirstOrDefault(x => x.Id == lojaId);
                 nomeloja = loja?.Nome;
 
-                _Context.ConexaoCliente(loja?.Caminho, loja?.Host); ;
+                _Context.ConexaoCliente(loja?.Caminho ?? "", loja?.Host ?? ""); ;
 
                 //var lista = _Context.GruposProdutos.Where(x => x.Deletado != "V").ToList().Select(x => new ComboDTO { Id = x.CdGrupo, Descricao = x.Descricao} );
 
@@ -166,10 +166,10 @@ namespace ControleFiscal.Controllers
             var nomeloja = "";
             try
             {
-                var loja = _ContextLocal.Lojas.FirstOrDefault(x => x.Id == lojaId);
+                var loja = _ContextLocal.Empresas.FirstOrDefault(x => x.Id == lojaId);
                 nomeloja = loja?.Nome;
 
-                _Context.ConexaoCliente(loja?.Caminho, loja?.Host); ;
+                _Context.ConexaoCliente(loja?.Caminho ?? "", loja?.Host ?? ""); ;
 
                 var lista = _Context.Produtos.Where(x => x.Deletado == "V").Take(100).ToList();
 
@@ -187,16 +187,16 @@ namespace ControleFiscal.Controllers
         [HttpGet("ObterRelatorioProdutosLojas")]
         public IActionResult ObterRelatorioProdutosLojas()
         {
-            var lojas = _ContextLocal.Lojas.Where(x => x.Id < 200).ToList();
+            var lojas = _ContextLocal.Empresas.Where(x => x.Id < 200).ToList();
 
-            var resultado = new List<RelatorioProdutosLojasDTO>();
+            var resultado = new List<RelatorioProdutosEmpresasDTO>();
 
             foreach (var item in lojas)
             {
                 try
                 {
                     _Context.ConexaoCliente(_ContextLocal, item.Id);
-                    var produtos = _Context.Produtos.Where(x => x.Deletado != "V" && x.Inativo != "V").Select(x => new RelatorioProdutosLojasDTO
+                    var produtos = _Context.Produtos.Where(x => x.Deletado != "V" && x.Inativo != "V").Select(x => new RelatorioProdutosEmpresasDTO
                     {
                         CodBarras = x.CodBarras,
                         Descricao = x.NmProduto,
@@ -217,7 +217,7 @@ namespace ControleFiscal.Controllers
 
             StringBuilder relatorio = new StringBuilder();
 
-            relatorio.AppendLine("Loja;Cód de Barras;Nome Produto;PrecoCusto;PrecoVenda;Estoque");
+            relatorio.AppendLine("Loja;C�d de Barras;Nome Produto;PrecoCusto;PrecoVenda;Estoque");
 
             foreach (var item in resultado)
             {

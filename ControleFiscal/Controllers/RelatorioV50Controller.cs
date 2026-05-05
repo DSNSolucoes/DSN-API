@@ -220,7 +220,7 @@ namespace ControleFiscal.Controllers
                     fornecedorCNPJ = Regex.Replace(fornecedorCNPJ, @"[^a-zA-Z0-9]", "");
                 }
 
-                var lojas = _ContextLocal.Lojas.Where(x => lojaId.Contains(x.Id));//Para nao pegar nada do Entrada
+                var lojas = _ContextLocal.Empresas.Where(x => lojaId.Contains(x.Id));//Para nao pegar nada do Entrada
                 List<RelatorioV50DTO> retorno = new();
 
                 foreach (var item in lojas)
@@ -515,7 +515,7 @@ namespace ControleFiscal.Controllers
 
 
 
-            var lojas = _ContextLocal.Lojas.Where(x => x.Id < 999);
+            var lojas = _ContextLocal.Empresas.Where(x => x.Id < 999);
 
             foreach (var item in lojas)
             {
@@ -579,7 +579,7 @@ namespace ControleFiscal.Controllers
         [HttpGet("RemoverMascaraCNPJ")]
         public IActionResult RemoverMascaraCNPJ()
         {
-            var lojas = _ContextLocal.Lojas.Where(x => x.Id < 999);
+            var lojas = _ContextLocal.Empresas.Where(x => x.Id < 999);
             foreach (var item in lojas)
             {
                 try
@@ -740,7 +740,7 @@ namespace ControleFiscal.Controllers
         private IActionResult ExecutarScript(string script) 
         {
 
-             var lojas = _ContextLocal.Lojas
+             var lojas = _ContextLocal.Empresas
                 .Where(x => x.Id < 999)
                 .ToList();
 

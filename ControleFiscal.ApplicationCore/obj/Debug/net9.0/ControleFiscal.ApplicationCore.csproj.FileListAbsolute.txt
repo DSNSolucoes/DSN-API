@@ -16,7 +16,6 @@ D:\DsSoftware\Projetos\ControleFiscal\Git\ControleFiscal.ApplicationCore\obj\Deb
 D:\DsSoftware\Projetos\ControleFiscal\Git\ControleFiscal.ApplicationCore\obj\Debug\net9.0\refint\ControleFiscal.ApplicationCore.dll
 D:\DsSoftware\Projetos\ControleFiscal\Git\ControleFiscal.ApplicationCore\obj\Debug\net9.0\ControleFiscal.ApplicationCore.pdb
 D:\DsSoftware\Projetos\ControleFiscal\Git\ControleFiscal.ApplicationCore\obj\Debug\net9.0\ref\ControleFiscal.ApplicationCore.dll
-D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.ApplicationCore\bin\Debug\net9.0\efpt.config.json
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.ApplicationCore\bin\Debug\net9.0\ControleFiscal.ApplicationCore.deps.json
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.ApplicationCore\bin\Debug\net9.0\ControleFiscal.ApplicationCore.dll
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.ApplicationCore\bin\Debug\net9.0\ControleFiscal.ApplicationCore.pdb
@@ -29,6 +28,7 @@ D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.ApplicationCore\obj\Debug\net9
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.ApplicationCore\obj\Debug\net9.0\ControleFiscal.ApplicationCore.AssemblyInfoInputs.cache
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.ApplicationCore\obj\Debug\net9.0\ControleFiscal.ApplicationCore.AssemblyInfo.cs
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.ApplicationCore\obj\Debug\net9.0\ControleFiscal.ApplicationCore.csproj.CoreCompileInputs.cache
+D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.ApplicationCore\obj\Debug\net9.0\ControleFiscal.ApplicationCore.sourcelink.json
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.ApplicationCore\obj\Debug\net9.0\Controle.F7F6A482.Up2Date
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.ApplicationCore\obj\Debug\net9.0\ControleFiscal.ApplicationCore.dll
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.ApplicationCore\obj\Debug\net9.0\refint\ControleFiscal.ApplicationCore.dll

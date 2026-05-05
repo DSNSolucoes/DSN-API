@@ -166,11 +166,11 @@ namespace ControleFiscal.Controllers
         }
 
         [HttpDelete("movimentacao/{id}")]
-        public IActionResult DeletarMovimentacao(int id)
+        public IActionResult DeletarMovimentacao(int id, [FromBody] CaixaMovimentacaoDeletarModel model)
         {
             try
             {
-                _caixaService.DeletarMovimentacao(id);
+                _caixaService.DeletarMovimentacao(id, model?.NomeUsuario ?? "");
                 return Ok("Movimentação removida com sucesso.");
             }
             catch (KeyNotFoundException e)
@@ -234,6 +234,59 @@ namespace ControleFiscal.Controllers
             catch (Exception e)
             {
                 _logger.LogError(e, "Erro ao criar tipo de valor.");
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("tipovalor/{tipoValorId}/itens")]
+        public ActionResult<List<TipoValorCaixaItem>> ListarItensDoTipoValor(int tipoValorId)
+        {
+            try
+            {
+                var itens = _caixaService.ListarItensDoTipoValor(tipoValorId);
+                return Ok(itens);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Erro ao listar itens do tipo de valor.");
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost("tipovalor/{tipoValorId}/itens")]
+        public IActionResult CriarItemTipoValor(int tipoValorId, [FromBody] TipoValorCaixaItemSalvarModel model)
+        {
+            try
+            {
+                var entity = _caixaService.CriarItemTipoValor(tipoValorId, model.Descricao ?? "");
+                return Ok(entity);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Erro ao criar item do tipo de valor.");
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete("tipovaloritens/{itemId}")]
+        public IActionResult DeletarItemTipoValor(int itemId)
+        {
+            try
+            {
+                _caixaService.DeletarItemTipoValor(itemId);
+                return Ok("Item removido com sucesso.");
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Erro ao deletar item do tipo de valor.");
                 return BadRequest(e.Message);
             }
         }

@@ -1,0 +1,12 @@
+D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Domain\bin\Release\net9.0\ControleFiscal.Domain.deps.json
+D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Domain\bin\Release\net9.0\ControleFiscal.Domain.dll
+D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Domain\bin\Release\net9.0\ControleFiscal.Domain.pdb
+D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Domain\obj\Release\net9.0\ControleFiscal.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Domain\obj\Release\net9.0\ControleFiscal.Domain.AssemblyInfoInputs.cache
+D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Domain\obj\Release\net9.0\ControleFiscal.Domain.AssemblyInfo.cs
+D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Domain\obj\Release\net9.0\ControleFiscal.Domain.csproj.CoreCompileInputs.cache
+D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Domain\obj\Release\net9.0\ControleFiscal.Domain.sourcelink.json
+D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Domain\obj\Release\net9.0\ControleFiscal.Domain.dll
+D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Domain\obj\Release\net9.0\refint\ControleFiscal.Domain.dll
+D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Domain\obj\Release\net9.0\ControleFiscal.Domain.pdb
+D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Domain\obj\Release\net9.0\ref\ControleFiscal.Domain.dll

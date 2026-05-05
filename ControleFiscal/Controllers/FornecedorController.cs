@@ -1,4 +1,4 @@
-﻿using ControleFiscal.Infrastructure.Sql;
+using ControleFiscal.Infrastructure.Sql;
 using ControleFiscal.Infrastructure.Sql.Entity;
 using ControleFiscal.Utils;
 using Microsoft.AspNetCore.Mvc;
@@ -31,12 +31,12 @@ namespace ControleFiscal.Controllers
             var nomeLoja = "";
             try
             {
-                var loja = _ContextLocal.Lojas.FirstOrDefault(x => x.Id == lojaId);
+                var loja = _ContextLocal.Empresas.FirstOrDefault(x => x.Id == lojaId);
                 nomeLoja = loja?.Nome;
 
-                _Context.ConexaoCliente(loja?.Caminho, loja?.Host);
+                _Context.ConexaoCliente(loja?.Caminho ?? "", loja?.Host ?? "");
 
-                var lista = _ContextLocal.Fornecedores.Where(x => x.idLoja == lojaId).ToList()
+                var lista = _ContextLocal.Fornecedores.Where(x => x.Id_Empresa == lojaId).ToList()
                                                       .OrderBy(x => x.NmFornecedor)
                                                       .Select(x => new ComboDTO { 
                                                           Id = x.CdFornecedor, 
@@ -59,7 +59,7 @@ namespace ControleFiscal.Controllers
 
             try
             {
-                var lojas = _ContextLocal.Lojas.Where(x => x.Id < 999).ToList();
+                var lojas = _ContextLocal.Empresas.Where(x => x.Id < 999).ToList();
 
                 foreach (var item in lojas)
                 {
@@ -73,7 +73,7 @@ namespace ControleFiscal.Controllers
 
                             if (conectado)
                             {
-                                var listaFornecedorLocal = _ContextLocal.Fornecedores.Where(x => x.idLoja == item.Id).ToList();
+                                var listaFornecedorLocal = _ContextLocal.Fornecedores.Where(x => x.Id_Empresa == item.Id).ToList();
 
                                 var listaFornecedorLoja = contextoLoja.Fornecedores.Where(x => x.Deletado != "V" && x.NmFornecedor != string.Empty)
                                                                                    .Select(x => new  Fornecedores()
@@ -84,12 +84,12 @@ namespace ControleFiscal.Controllers
 
                                 foreach (var fornecLoja in listaFornecedorLoja)
                                 {
-                                    if (!listaFornecedorLocal.Any(x => x.CdFornecedor == fornecLoja.CdFornecedor && x.idLoja == item.Id))
+                                    if (!listaFornecedorLocal.Any(x => x.CdFornecedor == fornecLoja.CdFornecedor && x.Id_Empresa == item.Id))
                                     {
                                         var novo = new Fornecedor()
                                         {
                                             CdFornecedor = fornecLoja.CdFornecedor,
-                                            idLoja = item.Id,
+                                            Id_Empresa = item.Id,
                                             NmFornecedor = fornecLoja.NmFornecedor
                                         };
 
@@ -97,13 +97,13 @@ namespace ControleFiscal.Controllers
                                     }
                                     else
                                     {
-                                        if (listaFornecedorLocal.Any(x => x.CdFornecedor == fornecLoja.CdFornecedor && x.NmFornecedor != fornecLoja.NmFornecedor && x.idLoja == item.Id))
+                                        if (listaFornecedorLocal.Any(x => x.CdFornecedor == fornecLoja.CdFornecedor && x.NmFornecedor != fornecLoja.NmFornecedor && x.Id_Empresa == item.Id))
                                         {
-                                            var atualizar = _ContextLocal.Fornecedores.FirstOrDefault(x => x.CdFornecedor == fornecLoja.CdFornecedor && x.idLoja == item.Id);
+                                            var atualizar = _ContextLocal.Fornecedores.FirstOrDefault(x => x.CdFornecedor == fornecLoja.CdFornecedor && x.Id_Empresa == item.Id);
 
                                             if (atualizar != null)
                                             {
-                                                var fornecedorLocal = listaFornecedorLocal.FirstOrDefault(x => x.CdFornecedor == fornecLoja.CdFornecedor && x.idLoja == item.Id);
+                                                var fornecedorLocal = listaFornecedorLocal.FirstOrDefault(x => x.CdFornecedor == fornecLoja.CdFornecedor && x.Id_Empresa == item.Id);
                                                 atualizar.NmFornecedor = fornecedorLocal?.NmFornecedor;
                                                 _ContextLocal.Fornecedores.Update(atualizar);
                                             }

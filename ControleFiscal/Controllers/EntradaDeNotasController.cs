@@ -1,4 +1,5 @@
-﻿using ControleFiscal.Context.NFe;
+﻿#nullable disable warnings
+using ControleFiscal.Context.NFe;
 using ControleFiscal.Infrastructure.Sql;
 using ControleFiscal.Infrastructure.Sql.Entity;
 using ControleFiscal.Services;
@@ -33,7 +34,7 @@ namespace ControleFiscal.Controllers
             _httpClient = httpClient;
         }
 
-        private bool SincronizarGrupos(Lojas loja, ContextControleFiscalContext context )
+        private bool SincronizarGrupos(ContextControleFiscalContext context )
         {
             string data = ConfiguracaoHelper.Ler(ConfiguracaoContants.Sincronizador, ConfiguracaoContants.UltimaSincroniaGrupoProdutos);
 
@@ -44,13 +45,13 @@ namespace ControleFiscal.Controllers
 
             var gruposEntrada = _ContextEntrada.GruposProdutos.Where(x => x.Ultimaalteracao > DateTime.Parse(data)).ToList();
 
-            var gruposLojas = context.GruposProdutos.ToList();
+            var gruposEmpresas = context.GruposProdutos.ToList();
 
             foreach (var item in gruposEntrada)
             {
-                if (gruposLojas.Any(x => x.CdGrupo == item.CdGrupo))
+                if (gruposEmpresas.Any(x => x.CdGrupo == item.CdGrupo))
                 {
-                    GruposProdutos? grupo = gruposLojas.FirstOrDefault(x => x.CdGrupo == item.CdGrupo);
+                    GruposProdutos? grupo = gruposEmpresas.FirstOrDefault(x => x.CdGrupo == item.CdGrupo);
 
                     if (grupo != null)
                     {
@@ -69,7 +70,7 @@ namespace ControleFiscal.Controllers
             return true;
         }
 
-        private bool SincronizarFornecedores(Lojas loja, ContextControleFiscalContext context)
+        private bool SincronizarFornecedores(ContextControleFiscalContext context)
         {
             string data = ConfiguracaoHelper.Ler(ConfiguracaoContants.Sincronizador,ConfiguracaoContants.UltimaSincroniaFornecedor);
             
@@ -80,13 +81,13 @@ namespace ControleFiscal.Controllers
 
             var fornecedoresEntrada = _ContextEntrada.Fornecedores.Where(x => x.Ultimaalteracao > DateTime.Parse(data)).ToList();
 
-            var fornecedoresLojas = context.Fornecedores.ToList();
+            var fornecedoresEmpresas = context.Fornecedores.ToList();
 
             foreach (var itemAtualizado in fornecedoresEntrada)
             {
-                if (fornecedoresLojas.Any(x => x.CdFornecedor == itemAtualizado.CdFornecedor))
+                if (fornecedoresEmpresas.Any(x => x.CdFornecedor == itemAtualizado.CdFornecedor))
                 {
-                    var fornecedor = fornecedoresLojas.FirstOrDefault(x => x.CdFornecedor == itemAtualizado.CdFornecedor);
+                    var fornecedor = fornecedoresEmpresas.FirstOrDefault(x => x.CdFornecedor == itemAtualizado.CdFornecedor);
                     if (fornecedor != null )
                     {
                         EntradaService.AtualizarValores(fornecedor, itemAtualizado);
@@ -286,22 +287,22 @@ namespace ControleFiscal.Controllers
         [HttpGet("ObterDados")]
         public ActionResult<string> ObterEntradas()
         { 
-            var lojas = _ContextLocal.Lojas.Where(x => x.Id == 62).ToList();
+            var Empresas = _ContextLocal.Empresas.Where(x => x.Id == 62).ToList();
             ContextControleFiscalContext contextLoja = new ContextControleFiscalContext();
 
 
             try
             {
-                foreach (var loja in lojas)
+                foreach (var empresa in Empresas)
                 {                    
                     _ContextEntrada.ConexaoCliente(_ContextLocal, 999);
-                    contextLoja.ConexaoCliente(_ContextLocal, loja.Id);
+                    contextLoja.ConexaoCliente(_ContextLocal, empresa.Id);
 
-                    SincronizarGrupos(loja, contextLoja);
-                    SincronizarFornecedores(loja, contextLoja);
+                    SincronizarGrupos( contextLoja);
+                    SincronizarFornecedores( contextLoja);
 
                     //Localizo o cadastro de empresa no servidor de cadastro para encontrar o cd_empresa e filtra a entrada
-                    var empresaId = _ContextEntrada.Empresas.FirstOrDefault(x => x.CpfCnpj == loja.CNPJ).CdEmpresa;
+                    var empresaId = _ContextEntrada.Empresas.FirstOrDefault(x => x.CpfCnpj == empresa.CNPJ).CdEmpresa;
 
                     var listaEntradas = _ContextEntrada.Entrada.Where(x => x.NotaFechada == "V" &&  x.Sincronizado != "V" && x.Deletado != "V" && x.CdEmpresa == empresaId).ToList();
 
@@ -350,7 +351,7 @@ namespace ControleFiscal.Controllers
                                  
                                 var produtoId = new FbParameter("@ICD_PRODUTO", produto.CdProduto);//passando o cd_produto do obj produto para garantir que o cd_produto da empresa correto
                                 var gradeId = new FbParameter("@ICD_GRADE", 0);
-                                var depositoId = new FbParameter("@ICD_DEPOSITO", entrada.CdDeposito); // deposito devera ser igual em todas as lojas
+                                var depositoId = new FbParameter("@ICD_DEPOSITO", entrada.CdDeposito); // deposito devera ser igual em todas as Empresas
                                 var operacao = new FbParameter("@IOPERACAO", "E");
                                 var historico = new FbParameter("@IHISTORICO", "Entrada de Notas Integração");
                                 var qunatidade = new FbParameter("@IQUANTIDADE", item.Quantidade);
@@ -440,7 +441,7 @@ namespace ControleFiscal.Controllers
 
                                 var produtoId = new FbParameter("@ICD_PRODUTO", produto.CdProduto);//passando o cd_produto do obj produto para garantir que o cd_produto da empresa correto
                                 var gradeId = new FbParameter("@ICD_GRADE", 0);
-                                var depositoId = new FbParameter("@ICD_DEPOSITO", entrada.CdDeposito); // deposito devera ser igual em todas as lojas
+                                var depositoId = new FbParameter("@ICD_DEPOSITO", entrada.CdDeposito); // deposito devera ser igual em todas as Empresas
                                 var operacao = new FbParameter("@IOPERACAO", "S");
                                 var historico = new FbParameter("@IHISTORICO", "Cancelamento Notas Integração");
                                 var qunatidade = new FbParameter("@IQUANTIDADE", item.Quantidade);

@@ -1,4 +1,4 @@
-﻿using ControleFiscal.Infrastructure.Sql;
+using ControleFiscal.Infrastructure.Sql;
 using ControleFiscal.Utils;
 
 using ControleFiscal.Infrastructure.Sql.Focus;
@@ -31,9 +31,9 @@ namespace ControleFiscal.Controllers
             string? nomeLoja = "";
             try
             {
-                var loja = _ContextLocal.Lojas.Where(x => x.Id < 900);
+                var loja = _ContextLocal.Empresas.Where(x => x.Id < 900);
 
-                List<RetornoResultadoLojasDTO> retorno = new List<RetornoResultadoLojasDTO>();
+                List<RetornoResultadoEmpresasDTO> retorno = new List<RetornoResultadoEmpresasDTO>();
 
                 foreach (var item in loja) {
                     try
@@ -43,7 +43,7 @@ namespace ControleFiscal.Controllers
             
                         using (ContextControleFiscalContext contextAtual = new ContextControleFiscalContext())
                         {
-                            contextAtual.ConexaoCliente(item?.Caminho, item?.Host);
+                            contextAtual.ConexaoCliente(item?.Caminho ?? "", item?.Host ?? "");
 
                             if (data == null)
                             {
@@ -83,7 +83,7 @@ namespace ControleFiscal.Controllers
 
 
 
-                            retorno.Add(new RetornoResultadoLojasDTO
+                            retorno.Add(new RetornoResultadoEmpresasDTO
                             {
                                 loja = nomeLoja,
                                 ValorFiscal = resultado == null ? 0 : resultado.Sum(x => x.Valor),

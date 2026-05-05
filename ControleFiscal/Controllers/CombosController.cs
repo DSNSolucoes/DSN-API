@@ -24,29 +24,29 @@ namespace ControleFiscal.Controllers
 
         [HttpGet("ObterLojas")]
         [Authorize]
-        public ActionResult<List<Lojas>> ObterLojas()
+        public ActionResult<List<Empresa>> ObterLojas()
         {
             try
             {
-                var usuario = User!.Identity!.Name;
+                var usuario = User!.Identity!.Name ?? string.Empty;
 
                 if (Debugger.IsAttached && string.IsNullOrEmpty(usuario))
                 {
                     usuario = "Douglas";
                 }
 
-                List<Lojas> resultado; 
+                List<Empresa> resultado; 
 
-                var Configuracao = _Context.Logins?.FirstOrDefault(x => x.Nome.ToUpper() == usuario.ToUpper());            
+                var Configuracao = _Context.Logins?.FirstOrDefault(x => (x.Nome ?? "").ToUpper() == usuario.ToUpper());            
 
                 if (string.IsNullOrEmpty(Configuracao?.EmpresaId))
                 {
-                    resultado = _Context.Lojas.OrderBy(x => x.Nome).ToList();
+                    resultado = _Context.Empresas.OrderBy(x => x.Nome).ToList();
                 }
                 else
                 {
                     var listaEmpresa = Configuracao.EmpresaId.Split(",").Select(x => int.Parse(x)).ToList();
-                    resultado = _Context.Lojas.Where(x => listaEmpresa.Contains(x.Id)).OrderBy(x => x.Nome).ToList();
+                    resultado = _Context.Empresas.Where(x => listaEmpresa.Contains(x.Id)).OrderBy(x => x.Nome).ToList();
                 }
 
                 return Ok(resultado);

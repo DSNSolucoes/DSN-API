@@ -26,7 +26,7 @@ namespace ControleFiscal.Utils
             }
 
 
-            return e.StackTrace;
+            return e.StackTrace ?? string.Empty;
 
         }
     }

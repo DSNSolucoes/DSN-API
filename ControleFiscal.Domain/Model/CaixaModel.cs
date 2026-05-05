@@ -5,7 +5,7 @@ namespace ControleFiscal.Domain.Model
     public class CaixaSalvarModel
     {
         public int Id { get; set; }
-        public int LojaId { get; set; }
+        public int IdEmpresa { get; set; }
         public string? Descricao { get; set; }
     }
 
@@ -22,9 +22,20 @@ namespace ControleFiscal.Domain.Model
         public string? AnexoArquivo { get; set; }
         public string? AnexoContentType { get; set; }
         public string? NomeFuncionario { get; set; }
+        public int? TipoValorCaixaItemId { get; set; }
     }
 
     public class TipoValorCaixaSalvarModel
+    {
+        public string? Descricao { get; set; }
+    }
+
+    public class CaixaMovimentacaoDeletarModel
+    {
+        public string? NomeUsuario { get; set; }
+    }
+
+    public class TipoValorCaixaItemSalvarModel
     {
         public string? Descricao { get; set; }
     }

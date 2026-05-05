@@ -24,7 +24,7 @@ namespace ControleFiscal.Controllers
         [HttpGet]
         public List<Pedido> Obter([FromBody] int lojaId)
         {
-            var loja = _ContextLocal.Lojas.FirstOrDefault(x => x.Id == lojaId);
+            var loja = _ContextLocal.Empresas.FirstOrDefault(x => x.Id == lojaId);
 
             if (loja != null)
             {

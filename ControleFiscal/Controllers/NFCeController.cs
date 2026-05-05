@@ -59,10 +59,10 @@ namespace ControleFiscal.Controllers
             var nomeLoja = "";
             try
             {
-                var loja = _ContextLocal.Lojas.FirstOrDefault(x => x.Id == lojaId);
+                var loja = _ContextLocal.Empresas.FirstOrDefault(x => x.Id == lojaId);
                 nomeLoja = loja?.Nome;
 
-                _Context.ConexaoCliente(loja.Caminho, loja.Host);
+                _Context.ConexaoCliente(loja!.Caminho, loja!.Host);
 
                 List<RetornoEmissaoCFOPDTO> retorno = new List<RetornoEmissaoCFOPDTO>();
 
@@ -108,10 +108,10 @@ namespace ControleFiscal.Controllers
             string? nomeLoja = "";
             try
             {
-                var loja = _ContextLocal.Lojas.FirstOrDefault(x => x.Id == lojaId);
+                var loja = _ContextLocal.Empresas.FirstOrDefault(x => x.Id == lojaId);
                 nomeLoja = loja?.Nome;
 
-                _Context.ConexaoCliente(loja?.Caminho, loja?.Host);
+                _Context.ConexaoCliente(loja?.Caminho ?? "", loja?.Host ?? "");
 
                 var lista = _Context.NfcePedido.Where(x => x.Status == "C").Take(100).ToList();
 

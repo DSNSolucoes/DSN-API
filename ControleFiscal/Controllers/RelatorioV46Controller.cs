@@ -1,4 +1,4 @@
-﻿using ControleFiscal.Infrastructure.Sql;
+using ControleFiscal.Infrastructure.Sql;
 
 using Microsoft.AspNetCore.Mvc;
 using ControleFiscal.Infrastructure.Sql.Focus;
@@ -28,9 +28,9 @@ namespace ControleFiscal.Controllers
         public List<Pedido> Obter([FromBody] int lojaId)
         {
 
-            var loja = _ContextLocal.Lojas.FirstOrDefault(x => x.Id == lojaId);
+            var loja = _ContextLocal.Empresas.FirstOrDefault(x => x.Id == lojaId);
 
-            _Context.ConexaoCliente(loja?.Caminho, loja?.Host);
+            _Context.ConexaoCliente(loja?.Caminho ?? "", loja?.Host ?? "");
 
             var lista = _Context.Pedido.Where(x => x.Cancelado != "V").Take(100).ToList();
 

@@ -19,12 +19,12 @@ namespace ControleFiscal.ApplicationCore.Service
             _context = context;
             _contextLocal = contextLocal;
         }
-        public List<CaixaDTO> Listar(int lojaId, DateTime data)
+        public List<CaixaDTO> Listar(int IdEmpresa, DateTime data)
         {
-            ValidarData(lojaId, data);
+            ValidarData(IdEmpresa, data);
 
-            var nomeLoja = _contextLocal.Lojas
-                .Where(x => x.Id == lojaId)
+            var nomeLoja = _contextLocal.Empresas
+                .Where(x => x.Id == IdEmpresa)
                 .Select(x => x.Nome)
                 .FirstOrDefault();
 
@@ -37,8 +37,17 @@ namespace ControleFiscal.ApplicationCore.Service
                 })
                 .ToList();
 
+            var tiposValorCaxiaItem = _contextLocal.TipoValorCaixaItem
+                .OrderBy(t => t.Descricao)
+                .Select(t => new TipoValor
+                {
+                    Id = t.Id,
+                    Descricao = t.Descricao
+                })
+                .ToList();
+
             var caixas = _contextLocal.Caixa
-                .Where(c => c.LojaId == lojaId && c.Ativo == "V")
+                .Where(c => c.IdEmpresa == IdEmpresa && c.Ativo == "V")
                 .OrderBy(c => c.Descricao)
                 .ToList();
 
@@ -52,7 +61,7 @@ namespace ControleFiscal.ApplicationCore.Service
                     tipoIds.Contains(m.TipoValorCaixaId) &&
                     m.Ativo == "V" &&
                     m.DataCompetencia.HasValue &&
-                    m.DataCompetencia.Value.Date == data.Date)
+                    m.DataCompetencia.Value.Date == data.Date)                    
                 .ToList();
 
             var retorno = caixas.Select(caixa =>
@@ -71,30 +80,36 @@ namespace ControleFiscal.ApplicationCore.Service
                             Descricao = m.Descricao ?? string.Empty,
                             Valor = m.Valor,
                             DataCadastro = m.DataCadastro ?? data,
+                            DataCompetencia = m.DataCompetencia ?? data,
                             DataRealizacao = m.DataRealizacao ?? data,
                             AnoCompetencia = data.Year,
                             MesCompetencia = data.Month,
+                            TipoValorCaixaId = m.TipoValorCaixaId,
                             NomeFuncionario = m.NomeFuncionario ?? string.Empty,
+                            TipoValorItemId = m.TipoValorCaixaItemId,
+                            TipoValorItemDescricao = m.TipoValorCaixaItemId.HasValue
+                                ? tiposValorCaxiaItem.FirstOrDefault(x => x.Id == m.TipoValorCaixaItemId)?.Descricao
+                                : null,
                             AnexoNome = m.AnexoNome,
                             AnexoContentType = m.AnexoContentType,
                             AnexoArquivo = m.AnexoArquivo
                         }).ToList()
                         : new List<CaixaMovimentacaoDetalhesDTO>
                         {
-                    new CaixaMovimentacaoDetalhesDTO
-                    {
-                        Id = 0,
-                        Descricao = string.Empty,
-                        Valor = 0,
-                        DataCadastro = data,
-                        DataRealizacao = data,
-                        AnoCompetencia = data.Year,
-                        MesCompetencia = data.Month,
-                        NomeFuncionario = string.Empty,
-                        AnexoNome = null,
-                        AnexoContentType = null,
-                        AnexoArquivo = null
-                    }
+             new CaixaMovimentacaoDetalhesDTO
+             {
+                 Id = 0,
+                 Descricao = string.Empty,
+                 Valor = 0,
+                 DataCadastro = data,
+                 DataRealizacao = data,
+                 AnoCompetencia = data.Year,
+                 MesCompetencia = data.Month,
+                 NomeFuncionario = string.Empty,
+                 AnexoNome = null,
+                 AnexoContentType = null,
+                 AnexoArquivo = null
+             }
                         };
 
                     return new CaixaMovimentacoesDTO
@@ -110,22 +125,23 @@ namespace ControleFiscal.ApplicationCore.Service
                 return new CaixaDTO
                 {
                     Id = caixa.Id,
-                    LojaId = caixa.LojaId,
+                    IdEmpresa = caixa.IdEmpresa,
                     NomeLoja = nomeLoja,
                     Descricao = caixa.Descricao,
+                    Ordem = caixa.Ordem,
                     AnoCompetencia = (short)data.Year,
                     MesCompetencia = (short)data.Month,
                     Valores = valores
                 };
-            }).ToList();
+            }).OrderBy(x => x.Ordem).ToList();
 
             return retorno;
         }
 
-        public List<CaixaResumoMensalDTO> ListarResumoMensal(int lojaId, int ano, int mes)
+        public List<CaixaResumoMensalDTO> ListarResumoMensal(int IdEmpresa, int ano, int mes)
         {
-            if (lojaId <= 0)
-                throw new ArgumentException("LojaId é obrigatório.");
+            if (IdEmpresa <= 0)
+                throw new ArgumentException("IdEmpresa é obrigatório.");
 
             if (ano <= 0)
                 throw new ArgumentException("Ano inválido.");
@@ -134,7 +150,7 @@ namespace ControleFiscal.ApplicationCore.Service
                 throw new ArgumentException("Mês inválido.");
 
             var caixas = _contextLocal.Caixa
-                .Where(c => c.LojaId == lojaId && c.Ativo == "V")
+                .Where(c => c.IdEmpresa == IdEmpresa && c.Ativo == "V")
                 .OrderBy(c => c.Descricao)
                 .ToList();
 
@@ -163,12 +179,12 @@ namespace ControleFiscal.ApplicationCore.Service
         public Caixa IncluirCaixa(CaixaSalvarModel model)
         {
             ValidarModelCaixa(model);
-            ValidarLoja(model.LojaId);
+            ValidarLoja(model.IdEmpresa);
             ValidarDuplicidadeCaixa(model, null);
 
             var entity = new Caixa
             {
-                LojaId = model.LojaId,
+                IdEmpresa = model.IdEmpresa,
                 Descricao = model.Descricao!.Trim(),
                 DataCadastro = DateTime.Now,
                 Ativo = "V"
@@ -186,10 +202,10 @@ namespace ControleFiscal.ApplicationCore.Service
 
             var entity = ObterCaixaAtivo(id);
 
-            ValidarLoja(model.LojaId);
+            ValidarLoja(model.IdEmpresa);
             ValidarDuplicidadeCaixa(model, id);
 
-            entity.LojaId = model.LojaId;
+            entity.IdEmpresa = model.IdEmpresa;
             entity.Descricao = model.Descricao!.Trim();
 
             _context.Set<Caixa>().Update(entity);
@@ -219,6 +235,7 @@ namespace ControleFiscal.ApplicationCore.Service
             {
                 CaixaId = model.CaixaId,
                 TipoValorCaixaId = model.TipoValorCaixaId,
+                TipoValorCaixaItemId = model.TipoValorCaixaItemId,
                 Valor = model.Valor,
                 DataCadastro = DateTime.Now,
                 DataCompetencia = model.DataCompetencia,
@@ -227,7 +244,7 @@ namespace ControleFiscal.ApplicationCore.Service
                 AnexoNome = model.AnexoNome,
                 AnexoContentType = model.AnexoContentType,
                 AnexoArquivo = model.AnexoArquivo,
-                NomeFuncionario = model.NomeFuncionario,
+                NomeFuncionario = model.NomeFuncionario, 
                 Ativo = "V"
             };
 
@@ -256,27 +273,30 @@ namespace ControleFiscal.ApplicationCore.Service
             entity.AnexoContentType = model.AnexoContentType;
             entity.AnexoArquivo = model.AnexoArquivo;
             entity.NomeFuncionario = model.NomeFuncionario;
+            entity.TipoValorCaixaItemId = model.TipoValorCaixaItemId;
 
-            _context.Set<CaixaMovimentacao>().Update(entity);
-            _context.SaveChanges();
+            _contextLocal.Set<CaixaMovimentacao>().Update(entity);
+            _contextLocal.SaveChanges();
 
             return entity;
         }
 
-        public void DeletarMovimentacao(int id)
+        public void DeletarMovimentacao(int id, string nomeUsuario)
         {
             var entity = ObterMovimentacaoAtiva(id);
 
             entity.Ativo = "F";
+            entity.NomeUsuarioExclusao = nomeUsuario?.Trim();
+            entity.DataExclusao = DateTime.Now;
 
-            _context.Set<CaixaMovimentacao>().Update(entity);
-            _context.SaveChanges();
+            _contextLocal.CaixaMovimentacao.Update(entity);
+            _contextLocal.SaveChanges();
         }
 
-        private void ValidarData(int lojaId, DateTime data)
+        private void ValidarData(int IdEmpresa, DateTime data)
         {
-            if (lojaId <= 0)
-                throw new ArgumentException("LojaId é obrigatório.");
+            if (IdEmpresa <= 0)
+                throw new ArgumentException("IdEmpresa é obrigatório.");
 
             if (data == DateTime.MinValue)
                 throw new ArgumentException("Data inválida.");
@@ -284,8 +304,8 @@ namespace ControleFiscal.ApplicationCore.Service
 
         private void ValidarModelCaixa(CaixaSalvarModel model)
         {
-            if (model.LojaId <= 0)
-                throw new ArgumentException("LojaId é obrigatório.");
+            if (model.IdEmpresa <= 0)
+                throw new ArgumentException("IdEmpresa é obrigatório.");
 
             if (string.IsNullOrWhiteSpace(model.Descricao))
                 throw new ArgumentException("Descrição é obrigatória.");
@@ -306,9 +326,9 @@ namespace ControleFiscal.ApplicationCore.Service
                 throw new ArgumentException("DataCompetencia é obrigatória.");
         }
 
-        private void ValidarLoja(int lojaId)
+        private void ValidarLoja(int IdEmpresa)
         {
-            var lojaExiste = _contextLocal.Lojas.Any(x => x.Id == lojaId);
+            var lojaExiste = _contextLocal.Empresas.Any(x => x.Id == IdEmpresa);
 
             if (!lojaExiste)
                 throw new ArgumentException("Loja não encontrada.");
@@ -319,7 +339,7 @@ namespace ControleFiscal.ApplicationCore.Service
             var descricaoNormalizada = model.Descricao!.Trim();
 
             var query = _contextLocal.Set<Caixa>().Where(x =>
-                x.LojaId == model.LojaId &&
+                x.IdEmpresa == model.IdEmpresa &&
                 x.Descricao == descricaoNormalizada &&
                 x.Ativo == "V");
 
@@ -401,6 +421,57 @@ namespace ControleFiscal.ApplicationCore.Service
             _contextLocal.SaveChanges();
 
             return entity;
+        }
+
+        public List<TipoValorCaixaItem> ListarItensDoTipoValor(int tipoValorId)
+        {
+            return _contextLocal.TipoValorCaixaItem
+                .Where(i => i.TipoValorCaixaId == tipoValorId && i.Ativo == "V")
+                .OrderBy(i => i.Descricao)
+                .ToList();
+        }
+
+        public TipoValorCaixaItem CriarItemTipoValor(int tipoValorId, string descricao)
+        {
+            if (string.IsNullOrWhiteSpace(descricao))
+                throw new ArgumentException("Descrição é obrigatória.");
+
+            var tipoExiste = _contextLocal.TipoValorCaixa.Any(t => t.Id == tipoValorId);
+            if (!tipoExiste)
+                throw new ArgumentException("Tipo de valor não encontrado.");
+
+            var trimmed = descricao.Trim();
+
+            var existente = _contextLocal.TipoValorCaixaItem
+                .FirstOrDefault(i => i.TipoValorCaixaId == tipoValorId && i.Descricao == trimmed && i.Ativo == "V");
+
+            if (existente != null)
+                return existente;
+
+            var entity = new TipoValorCaixaItem
+            {
+                TipoValorCaixaId = tipoValorId,
+                Descricao = trimmed,
+                Ativo = "S",
+                DataCadastro = DateTime.Now
+            };
+
+            _contextLocal.TipoValorCaixaItem.Add(entity);
+            _contextLocal.SaveChanges();
+
+            return entity;
+        }
+
+        public void DeletarItemTipoValor(int itemId)
+        {
+            var entity = _contextLocal.TipoValorCaixaItem.FirstOrDefault(i => i.Id == itemId && i.Ativo == "V");
+
+            if (entity == null)
+                throw new KeyNotFoundException("Item não encontrado.");
+
+            entity.Ativo = "N";
+            _contextLocal.TipoValorCaixaItem.Update(entity);
+            _contextLocal.SaveChanges();
         }
     }
 }

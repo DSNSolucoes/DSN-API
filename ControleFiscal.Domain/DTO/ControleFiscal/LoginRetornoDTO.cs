@@ -8,6 +8,7 @@ namespace ControleFiscal.Domain.DTO.ControleFiscal
     {
         public LoginRetornoDTO(Usuario usuario) 
         {
+            Id = usuario.Id;
             Login = usuario.Login; 
             Nome = usuario.Nome;    
             Fiscal = usuario.Fiscal;    
@@ -17,7 +18,7 @@ namespace ControleFiscal.Domain.DTO.ControleFiscal
             Senha = LoginRetornoDTO.RetornarSenha();
             CriadoEm = Convert.ToBase64String(Encoding.UTF8.GetBytes(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")));
         }
-
+        public int Id { get; set; }
         public string? Nome { get; set; } = string.Empty; 
         public string? Fiscal { get; set; }
         public string? Relatorio { get; set; }

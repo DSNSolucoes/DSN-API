@@ -16,7 +16,6 @@ D:\DsSoftware\Projetos\ControleFiscal\Git\ControleFiscal.Infrastructure.Sql\obj\
 D:\DsSoftware\Projetos\ControleFiscal\Git\ControleFiscal.Infrastructure.Sql\obj\Debug\net9.0\ControleFiscal.Infrastructure.Sql.pdb
 D:\DsSoftware\Projetos\ControleFiscal\Git\ControleFiscal.Infrastructure.Sql\obj\Debug\net9.0\ControleFiscal.Infrastructure.Sql.genruntimeconfig.cache
 D:\DsSoftware\Projetos\ControleFiscal\Git\ControleFiscal.Infrastructure.Sql\obj\Debug\net9.0\ref\ControleFiscal.Infrastructure.Sql.dll
-D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Infrastructure.Sql\bin\Debug\net9.0\efpt.config.json
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Infrastructure.Sql\bin\Debug\net9.0\ControleFiscal.Infrastructure.Sql.deps.json
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Infrastructure.Sql\bin\Debug\net9.0\ControleFiscal.Infrastructure.Sql.runtimeconfig.json
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Infrastructure.Sql\bin\Debug\net9.0\ControleFiscal.Infrastructure.Sql.dll
@@ -28,6 +27,7 @@ D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Infrastructure.Sql\obj\Debug\n
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Infrastructure.Sql\obj\Debug\net9.0\ControleFiscal.Infrastructure.Sql.AssemblyInfoInputs.cache
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Infrastructure.Sql\obj\Debug\net9.0\ControleFiscal.Infrastructure.Sql.AssemblyInfo.cs
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Infrastructure.Sql\obj\Debug\net9.0\ControleFiscal.Infrastructure.Sql.csproj.CoreCompileInputs.cache
+D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Infrastructure.Sql\obj\Debug\net9.0\ControleFiscal.Infrastructure.Sql.sourcelink.json
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Infrastructure.Sql\obj\Debug\net9.0\Controle.AAA7D336.Up2Date
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Infrastructure.Sql\obj\Debug\net9.0\ControleFiscal.Infrastructure.Sql.dll
 D:\DsSoftware\Projetos\DSN\DSN-API\ControleFiscal.Infrastructure.Sql\obj\Debug\net9.0\refint\ControleFiscal.Infrastructure.Sql.dll

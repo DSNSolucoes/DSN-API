@@ -50,6 +50,26 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICaixaService, CaixaService>();
+builder.Services.AddScoped<IPermissaoService, PermissaoService>();
+
+// Controle Bancário
+builder.Services.AddScoped<IBancoService, BancoService>();
+builder.Services.AddScoped<IContaBancariaService, ContaBancariaService>();
+builder.Services.AddScoped<ICategoriaFinanceiraService, CategoriaFinanceiraService>();
+builder.Services.AddScoped<ILancamentoBancarioService, LancamentoBancarioService>();
+builder.Services.AddScoped<IConciliacaoBancariaService, ConciliacaoBancariaService>();
+builder.Services.AddScoped<IFechamentoBancarioService, FechamentoBancarioService>();
+builder.Services.AddScoped<IRegraClassificacaoService, RegraClassificacaoService>();
+builder.Services.AddScoped<IDashboardBancarioService, DashboardBancarioService>();
+
+// Contas a Pagar
+builder.Services.AddScoped<IFornecedorCPService, FornecedorCPService>();
+builder.Services.AddScoped<ICategoriaContaPagarService, CategoriaContaPagarService>();
+builder.Services.AddScoped<ICentroCustoCPService, CentroCustoCPService>();
+builder.Services.AddScoped<IContaPagarService, ContaPagarService>();
+builder.Services.AddScoped<IPagamentoContaPagarService, PagamentoContaPagarService>();
+builder.Services.AddScoped<IContaPagarRecorrenteService, ContaPagarRecorrenteService>();
+builder.Services.AddScoped<IDashboardContasPagarService, DashboardContasPagarService>();
 
 
 var HabilitaSwagger = configuration.GetSection("ConfiguracaoProducao:HabilitaSwagger").Value == "True";

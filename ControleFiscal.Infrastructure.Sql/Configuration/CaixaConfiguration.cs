@@ -12,14 +12,13 @@ namespace ControleFiscal.Infrastructure.Sql.Local
 
             entity.ToTable("CAIXA");
 
-            entity.HasIndex(e => e.Id, "PK_CAIXA");
-            entity.HasIndex(e => e.LojaId, "IX_CAIXA_LOJA");
+            entity.HasIndex(e => e.Id, "PK_CAIXA"); 
 
             entity.Property(e => e.Id)
                 .HasColumnName("ID");
 
-            entity.Property(e => e.LojaId)
-                .HasColumnName("LOJA_ID")
+            entity.Property(e => e.IdEmpresa)
+                .HasColumnName("ID_EMPRESA")
                 .IsRequired();
 
             entity.Property(e => e.Descricao)
@@ -30,6 +29,9 @@ namespace ControleFiscal.Infrastructure.Sql.Local
             entity.Property(e => e.DataCadastro)
                 .HasColumnName("DATA_CADASTRO")
                 .HasColumnType("TIMESTAMP");
+
+            entity.Property(e => e.Ordem)
+                .HasColumnName("ORDEM");
 
             entity.Property(e => e.Ativo)
                 .HasColumnName("ATIVO")

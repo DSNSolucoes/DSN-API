@@ -4,11 +4,12 @@
     public class CaixaDTO
     {
         public int Id { get; set; }
-        public int LojaId { get; set; }
+        public int IdEmpresa { get; set; }
         public string NomeLoja { get; set; }
         public string Descricao { get; set; }
         public DateTime? DataCadastro { get; set; }
         public string Ativo { get; set; }
+        public short Ordem { get; set; } = 0;
 
         // competência usada na montagem do retorno
         public short AnoCompetencia { get; set; }

@@ -69,6 +69,26 @@ namespace ControleFiscal.Infrastructure.Sql.Local
                 .HasColumnName("NOME_FUNCIONARIO")
                 .HasMaxLength(100);
 
+            entity.Property(e => e.TipoValorCaixaItemId)
+                .HasColumnName("TIPO_VALOR_CAIXA_ITEM_ID")
+                .IsRequired(false);
+
+            entity.Property(e => e.NomeUsuarioExclusao)
+                .HasColumnName("NOME_USUARIO_EXCLUSAO")
+                .HasMaxLength(100)
+                .IsRequired(false);
+
+            entity.Property(e => e.DataExclusao)
+                .HasColumnName("DATA_EXCLUSAO")
+                .HasColumnType("TIMESTAMP")
+                .IsRequired(false);
+
+            entity.HasOne(e => e.TipoValorCaixaItem)
+                .WithMany()
+                .HasForeignKey(e => e.TipoValorCaixaItemId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .IsRequired(false);
+
             OnConfigurePartial(entity);
         }
 

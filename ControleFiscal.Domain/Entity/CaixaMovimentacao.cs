@@ -18,5 +18,11 @@ namespace ControleFiscal.Infrastructure.Sql.Entity
         public string AnexoArquivo { get; set; }
         public string AnexoContentType { get; set; }
         public string NomeFuncionario { get; set; }
+        public int? TipoValorCaixaItemId { get; set; }
+
+        public string NomeUsuarioExclusao { get; set; }
+        public DateTime? DataExclusao { get; set; }
+
+        public virtual TipoValorCaixaItem TipoValorCaixaItem { get; set; }
     }
 }

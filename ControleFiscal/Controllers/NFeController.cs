@@ -68,18 +68,18 @@ namespace ControleFiscal.Controllers
             {
                 if (nota.NotaFiscalEletronica?.InformacoesNFe?.Detalhe?.Count() > 0)
                 {               
-                    foreach (var item in nota.NotaFiscalEletronica.InformacoesNFe.Detalhe)
+                    foreach (var item in nota.NotaFiscalEletronica!.InformacoesNFe!.Detalhe!)
                     {
-                        if  (retorno?.CFOPs?.Count() > 0 && retorno.CFOPs.Any(x => x.CFOP == item.Produto.CFOP))
+                        if  (retorno?.CFOPs?.Count() > 0 && retorno!.CFOPs!.Any(x => x.CFOP == item.Produto?.CFOP))
                         {
-                            var ret = retorno?.CFOPs?.FirstOrDefault(x => x.CFOP == item.Produto.CFOP);
+                            var ret = retorno?.CFOPs?.FirstOrDefault(x => x.CFOP == item.Produto?.CFOP);
 
                             if (ret != null)                                
-                              ret.Valor = item.Produto.ValorBrutoProdutoServico;
+                              ret.Valor = item.Produto?.ValorBrutoProdutoServico ?? 0;
                         }
                         else
                         {
-                             retorno?.CFOPs?.Add(new CFOPValores { CFOP = item.Produto.CFOP, Valor = item.Produto.ValorBrutoProdutoServico });
+                             retorno?.CFOPs?.Add(new CFOPValores { CFOP = item.Produto?.CFOP, Valor = item.Produto?.ValorBrutoProdutoServico ?? 0 });
                         }                    
 
                     }

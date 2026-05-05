@@ -23,7 +23,7 @@ namespace ControleFiscal.Utils
 
             if (json != null)
             {
-                dynamic jsonObj = JsonConvert.DeserializeObject(json);
+                dynamic? jsonObj = JsonConvert.DeserializeObject(json);
 
                 if (jsonObj != null)
                 {

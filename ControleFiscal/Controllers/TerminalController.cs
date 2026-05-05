@@ -1,4 +1,4 @@
-﻿using ControleFiscal.Infrastructure.Sql;
+using ControleFiscal.Infrastructure.Sql;
 using ControleFiscal.Infrastructure.Sql.Entity;
 using ControleFiscal.Utils;
 using Microsoft.AspNetCore.Mvc;
@@ -32,13 +32,13 @@ namespace ControleFiscal.Controllers
         {
             try
             {
-                var lista = _ContextLocal.Lojas.Where(x => x.Id < 200).ToList();
+                var lista = _ContextLocal.Empresas.Where(x => x.Id < 200).ToList();
                 //retorno com nome da loja e se tem o campo reforma
                 var retorno = new List<object>();
 
                 foreach (var loja in lista)
                 {
-                    _Context.ConexaoCliente(loja?.Caminho, loja?.Host);
+                    _Context.ConexaoCliente(loja?.Caminho ?? "", loja?.Host ?? "");
                     var terminais = _Context.Terminais.ToList();
                     try
                     {
@@ -65,17 +65,17 @@ namespace ControleFiscal.Controllers
             string? nomeLoja = "";
             try
             {
-                var loja = _ContextLocal.Lojas.FirstOrDefault(x => x.Id == lojaId);
+                var loja = _ContextLocal.Empresas.FirstOrDefault(x => x.Id == lojaId);
                 nomeLoja = loja?.Nome;
                                 
-                _Context.ConexaoCliente(loja?.Caminho, loja?.Host);
+                _Context.ConexaoCliente(loja?.Caminho ?? "", loja?.Host ?? "");
 
                 if (data == null)
                 {
                     data = DateTime.Now;
                 }
 
-                var lista = _Context.Terminais.Where(x => x.Deletado != "V").OrderBy(x => x.Descricao).ToList();
+                var lista = _Context.Terminais.Where(x => x.Deletado != "V").OrderBy(x => x.Descricao).ToList(); 
 
                 var datas = DateHelper.GetFirstAndLastDayOfMonth(data.GetValueOrDefault().Month, data.GetValueOrDefault().Year);
                 var inicio = datas.FirstDay;
@@ -171,13 +171,13 @@ namespace ControleFiscal.Controllers
         {
             if (lojaId > 199)
             {
-                return Unauthorized("Código da empresa não permite esta funcionalidade");
+                return Unauthorized("C�digo da empresa n�o permite esta funcionalidade");
             }
 
             string? nomeLoja = "";
             try
             {
-                List<Lojas> lojas = new();
+                List<Empresa> Empresas = new();
                 StringBuilder listErro = new();
 
                 var NCMConfiguracao = _ContextLocal.NCMs.FirstOrDefault(x => x.Padrao == "V");
@@ -185,9 +185,9 @@ namespace ControleFiscal.Controllers
                 var ncmPadrao = NCMConfiguracao?.NCM;
 
 
-                lojas = _ContextLocal.Lojas.Where(x => lojaId == 0 ? true : x.Id == lojaId && x.Id < 200 && x.PercentualST > 0).ToList();
+                Empresas = _ContextLocal.Empresas.Where(x => lojaId == 0 ? true : x.Id == lojaId && x.Id < 200 && x.PercentualST > 0).ToList();
 
-                foreach (var loja in lojas)
+                foreach (var loja in Empresas)
                 {
                     try
                     {
@@ -195,7 +195,7 @@ namespace ControleFiscal.Controllers
 
                         ContextControleFiscalContext contextLoja = new ContextControleFiscalContext();
 
-                        contextLoja.ConexaoCliente(loja?.Caminho, loja?.Host);
+                        contextLoja.ConexaoCliente(loja?.Caminho ?? "", loja?.Host ?? "");
 
                         var lista = contextLoja.Terminais.Where(x => x.Deletado != "V").OrderBy(x => x.Descricao).OrderBy(x => x.NumTerminal).ToList();
 
@@ -258,7 +258,7 @@ namespace ControleFiscal.Controllers
         {
             if (lojaId > 199)
             {
-                return Unauthorized("Código da empresa não permite esta funcionalidade");
+                return Unauthorized("C�digo da empresa n�o permite esta funcionalidade");
             }
 
             return AtivarFiscalMargem(lojaId);
@@ -275,19 +275,19 @@ namespace ControleFiscal.Controllers
         {
             if (lojaId > 199)
             {
-                return Unauthorized("Código da empresa não permite esta funcionalidade"); 
+                return Unauthorized("C�digo da empresa n�o permite esta funcionalidade"); 
             }
-            var  loja = _ContextLocal.Lojas.FirstOrDefault(x => x.Id == lojaId);
+            var  loja = _ContextLocal.Empresas.FirstOrDefault(x => x.Id == lojaId);
 
             if (loja != null)
             {
                 loja.PercentualST = percentual;
-                _ContextLocal.Lojas.Update(loja);
+                _ContextLocal.Empresas.Update(loja);
                 _ContextLocal.SaveChanges();
 
                 return Ok();
             }
-            return NotFound("Loja não encontrada");
+            return NotFound("Loja n�o encontrada");
         }
 
         [HttpPost("AtivarRecursoExtraordinario")]
@@ -295,16 +295,16 @@ namespace ControleFiscal.Controllers
         {
             if (lojaId > 199)
             {
-                return Unauthorized("Código da empresa não permite esta funcionalidade");
+                return Unauthorized("C�digo da empresa n�o permite esta funcionalidade");
             }
 
             string? nomeLoja = "";
             try
             {
-                var loja = _ContextLocal.Lojas.FirstOrDefault(x => x.Id == lojaId);
+                var loja = _ContextLocal.Empresas.FirstOrDefault(x => x.Id == lojaId);
                 nomeLoja = loja?.Nome;
 
-                _Context.ConexaoCliente(loja?.Caminho, loja?.Host);
+                _Context.ConexaoCliente(loja?.Caminho ?? "", loja?.Host ?? "");
 
                 var configLocal = _Context.NfceConfigLocal.FirstOrDefault(x => x.NumTerminal == numTerminal);
 
@@ -334,10 +334,10 @@ namespace ControleFiscal.Controllers
             string? nomeLoja = "";
             try
             {
-                var loja = _ContextLocal.Lojas.FirstOrDefault(x => x.Id == lojaId);
+                var loja = _ContextLocal.Empresas.FirstOrDefault(x => x.Id == lojaId);
                 nomeLoja = loja?.Nome;
 
-                _Context.ConexaoCliente(loja?.Caminho, loja?.Host);
+                _Context.ConexaoCliente(loja?.Caminho ?? "", loja?.Host ?? "");
 
                 var configLocal = _Context.NfceConfigLocal.FirstOrDefault(x => x.NumTerminal == numTerminal);
 
@@ -368,16 +368,16 @@ namespace ControleFiscal.Controllers
 
             if (lojaId > 199)
             {
-                return Unauthorized("Código da empresa não permite esta funcionalidade");
+                return Unauthorized("C�digo da empresa n�o permite esta funcionalidade");
             }
 
             string? nomeLoja = "";
             try
             {
-                var loja = _ContextLocal.Lojas.FirstOrDefault(x => x.Id == lojaId);
+                var loja = _ContextLocal.Empresas.FirstOrDefault(x => x.Id == lojaId);
                 nomeLoja = loja?.Nome;
 
-                _Context.ConexaoCliente(loja?.Caminho, loja?.Host);
+                _Context.ConexaoCliente(loja?.Caminho ?? "", loja?.Host ?? "");
 
                 var configLocal = _Context.NfceConfigLocal.FirstOrDefault(x => x.NumTerminal == numTerminal);
 
@@ -408,10 +408,10 @@ namespace ControleFiscal.Controllers
 
             try
             {
-                var loja = _ContextLocal.Lojas.FirstOrDefault(x => x.Id == lojaId);
+                var loja = _ContextLocal.Empresas.FirstOrDefault(x => x.Id == lojaId);
                 nomeLoja = loja?.Nome;
 
-                _Context.ConexaoCliente(loja?.Caminho, loja?.Host);
+                _Context.ConexaoCliente(loja?.Caminho ?? "", loja?.Host ?? "");
 
                 var configLocal = _Context.NfceConfigLocal.FirstOrDefault(x => x.NumTerminal == numTerminal);
 

@@ -15,8 +15,7 @@ namespace ControleFiscal.Infrastructure.Sql.Focus.Context
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-
+        { 
             string conn = "User=SYSDBA;Password=masterkey;Database=" + _clienteId + ";DataSource=" + _host + ";Port=3050;Dialect=3;Charset=UTF8;";
             optionsBuilder.UseFirebird(conn, o => o.WithExplicitStringLiteralTypes()).AddInterceptors(new SqlInterceptor()); 
             optionsBuilder.LogTo(Console.Write);             
@@ -27,7 +26,7 @@ namespace ControleFiscal.Infrastructure.Sql.Focus.Context
         {
             try
             {
-                var loja = _ContextLocal.Lojas.FirstOrDefault(x => x.Id == lojaId);
+                var loja = _ContextLocal.Empresas.FirstOrDefault(x => x.Id == lojaId);
 
                 _clienteId = loja.Caminho;
                 _host = loja.Host;
@@ -44,7 +43,7 @@ namespace ControleFiscal.Infrastructure.Sql.Focus.Context
         }
         public DbContext ConexaoCliente(ContextLocalContext _ContextLocal, int lojaId)
         {
-            var loja = _ContextLocal.Lojas.FirstOrDefault(x => x.Id == lojaId);
+            var loja = _ContextLocal.Empresas.FirstOrDefault(x => x.Id == lojaId);
 
             _clienteId = loja.Caminho;
             _host = loja.Host;
