@@ -1,6 +1,41 @@
 ﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+# .NET / Visual Studio
 ################################################################################
 
-/ControleFiscal.ApplicationCore/bin/Debug/net9.0/ControleFiscal.ApplicationCore.dll
-ControleFiscal.ApplicationCore/bin/Release/net9.0/ControleFiscal.ApplicationCore.dll
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+bin/
+obj/
+Bin/
+Obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# NuGet
+*.nupkg
+**/packages/*
+!**/packages/build/
+
+# Publish / deploy
+publish/
+*.pubxml
+*.publishproj
+*.[Pp]ublish.xml
+
+# Sensitive configuration — use appsettings.json as template only
+appsettings.Development.json
+appsettings.Production.json
+appsettings.*.json
+!appsettings.json
+
+# Logs
+*.log
