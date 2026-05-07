@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ControleFiscal.ApplicationCore")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3c7dca0e497962e144f1b3cbe9958f4147bb0271")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba5ad34491cb1dcce7c64611a93dffeae46ea8b1")]
 [assembly: System.Reflection.AssemblyProductAttribute("ControleFiscal.ApplicationCore")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ControleFiscal.ApplicationCore")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
